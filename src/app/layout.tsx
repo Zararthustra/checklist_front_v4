@@ -20,7 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+      <body className={`font-sans ${inter.variable}`}>
+        <nav className="flex w-full justify-between p-5 text-xl font-bold">
+          <div>Home</div>
+          <div>Login</div>
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }

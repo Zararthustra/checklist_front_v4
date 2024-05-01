@@ -1,9 +1,8 @@
-import { db } from "~/server/db";
-import { UploadButton, UploadDropzone } from "~/utils/uploadthing";
+import { getMyImages } from "~/server/queries";
 import UploadButtons from "./UploadButtons";
 
 export default async function Images() {
-  const images = await db.query.images.findMany();
+  const images = await getMyImages();
 
   return (
     <div>

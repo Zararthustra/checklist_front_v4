@@ -1,5 +1,6 @@
 import { getMyImages } from "~/server/queries";
 import UploadButtons from "./UploadButtons";
+import Image from "next/image";
 
 export default async function Images() {
   const images = await getMyImages();
@@ -8,7 +9,10 @@ export default async function Images() {
     <div>
       <div className="flex items-center justify-center gap-2">
         {images.map((img) => (
-          <img key={img.id} src={img.url} className="h-48 w-48 object-cover" />
+          <div key={img.id} className="relative h-48 w-48">
+            <Image src={img.url} fill alt={img.name} />
+            <p>{img.name}</p>
+          </div>
         ))}
       </div>
       <UploadButtons />

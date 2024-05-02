@@ -7,6 +7,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 
 import "~/styles/globals.css";
 import "@uploadthing/react/styles.css";
+import { Toaster } from "~/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,11 +32,12 @@ export default function RootLayout({
       <html lang="en">
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
 
-        <body className={`font-sans ${inter.variable}`}>
+        <body className={`font-sans ${inter.variable} dark`}>
           <Navbar />
           {children}
           {modal}
           <div id="modal-root" />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

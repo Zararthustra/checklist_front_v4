@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { UploadButton, UploadDropzone } from "~/utils/uploadthing";
 
 export default function UploadButtons() {
@@ -12,6 +13,11 @@ export default function UploadButtons() {
         endpoint="imageUploader"
         onClientUploadComplete={() => {
           router.refresh();
+          toast.dismiss("toast");
+          toast.success("Youpi !");
+        }}
+        onUploadBegin={() => {
+          toast.success("Chargement...", { id: "toast" });
         }}
       />
       {/* <UploadDropzone

@@ -6,3 +6,4 @@ export { IconHidden } from "./iconHidden";
 export { IconLoader } from "./iconLoader";
 export { IconAddTask } from "./iconAddTask";
 export { IconTrash } from "./iconTrash";
+export { IconModify } from "./iconModify";

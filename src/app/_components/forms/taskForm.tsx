@@ -1,9 +1,9 @@
 "use client";
 
 import { addTask } from "~/server/queries";
-import Submit from "../buttons/submit";
 import { useRef } from "react";
 import { toast } from "sonner";
+import SubmitTask from "../buttons/submitTask";
 
 export default function TaskForm({ category }: { category: any }) {
   const ref = useRef<HTMLFormElement>(null);
@@ -24,7 +24,7 @@ export default function TaskForm({ category }: { category: any }) {
         type="text"
         name="task"
       />
-      <Submit />
+      <SubmitTask />
     </form>
   );
 }

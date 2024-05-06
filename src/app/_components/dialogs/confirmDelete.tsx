@@ -6,7 +6,6 @@ import { ICategory } from "~/app/_interfaces";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -17,7 +16,7 @@ import { delCategory } from "~/server/queries";
 export default function ConfirmDelete({ category }: { category: ICategory }) {
   return (
     <Dialog>
-      <DialogTrigger className="rounded bg-red-400 px-4 py-1 text-white transition-colors hover:bg-red-600">
+      <DialogTrigger className="rounded bg-destructive px-4 py-1 text-white transition-colors hover:bg-red-600">
         <div className="flex items-center justify-evenly gap-2">
           <IconTrash />
           <p>Supprimer la catégorie</p>

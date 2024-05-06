@@ -1,7 +1,6 @@
 "use client";
 
 import { addCategory, addTask } from "~/server/queries";
-import Submit from "../buttons/submit";
 import { useRef } from "react";
 import { toast } from "sonner";
 
@@ -24,7 +23,6 @@ export default function CategoryForm() {
         placeholder="Nouvelle categorie"
         name="category"
       />
-      {/* <Submit /> */}
     </form>
   );
 }

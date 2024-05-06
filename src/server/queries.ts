@@ -79,7 +79,7 @@ export async function delCategory(category: any) {
 
 export async function updateCategory(
   categoryId: number,
-  field: "isHidden" | "color",
+  field: "isHidden" | "color" | "name" | "isRecurrent",
   value: boolean | string,
 ) {
   const user = auth();

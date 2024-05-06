@@ -27,7 +27,7 @@ export default function Settings({
         <DialogHeader>
           <DialogTitle className="text-2xl">{title}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>{children}</DialogDescription>
+        {children}
       </DialogContent>
     </Dialog>
   );

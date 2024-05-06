@@ -1,43 +1,9 @@
 import { getTasks } from "~/server/queries";
 import Tasks from "./task";
 import TaskForm from "./forms/taskForm";
-import Settings from "./dialogs/settings";
-import ConfirmDelete from "./dialogs/confirmDelete";
 import { ICategory } from "../_interfaces";
 import HideCategory from "./buttons/hideCategory";
-
-function CategorySettings({ category }: { category: ICategory }) {
-  return (
-    <Settings title={category.name}>
-      <div className="my-10 flex flex-col gap-4">
-        <div className="flex justify-between">
-          <p>Changer de couleur</p>
-          <button>Couleurs</button>
-        </div>
-
-        <div className="flex justify-between">
-          <p>Tâches récurrentes</p>
-          <button>Non</button>
-        </div>
-
-        <div className="flex justify-between">
-          <p>Renommer</p>
-          <button>Renommer</button>
-        </div>
-
-        <div className="flex justify-between">
-          <p>Envoyer par SMS</p>
-          <button>Envoyer</button>
-        </div>
-      </div>
-
-      <div className="mt-5 flex justify-between">
-        <div />
-        <ConfirmDelete category={category} />
-      </div>
-    </Settings>
-  );
-}
+import { CategorySettings } from "./dialogs/categorySettings";
 
 export default async function Category({ category }: { category: ICategory }) {
   const tasks = await getTasks(category.id);

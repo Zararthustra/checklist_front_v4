@@ -44,11 +44,13 @@ export const tasks = createTable(
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
-    isDisabled: boolean("isDisabled").default(false),
+    isDisabled: boolean("isDisabled").default(false).notNull(),
     userId: varchar("userId", { length: 256 }).notNull(),
-    categoryId: integer("categoryId").references(() => categories.id, {
-      onDelete: "cascade",
-    }),
+    categoryId: integer("categoryId")
+      .references(() => categories.id, {
+        onDelete: "cascade",
+      })
+      .notNull(),
 
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)

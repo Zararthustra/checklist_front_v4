@@ -16,7 +16,7 @@ export default async function Category({ category }: { category: ICategory }) {
       >
         <div className="flex w-full justify-between">
           <HideCategory category={category} />
-          <CategorySettings category={category} />
+          <CategorySettings category={category} tasks={tasks} />
         </div>
         <h1 className="text-center text-2xl font-bold">{category.name}</h1>
       </div>

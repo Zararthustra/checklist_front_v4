@@ -3,7 +3,8 @@
 
 import { sql } from "drizzle-orm";
 import {
-  index,
+  boolean,
+  integer,
   pgTableCreator,
   serial,
   timestamp,
@@ -18,12 +19,14 @@ import {
  */
 export const createTable = pgTableCreator((name) => `checklist_${name}`);
 
-export const images = createTable(
-  "image",
+export const categories = createTable(
+  "category",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
-    url: varchar("url", { length: 1024 }).notNull(),
+    color: varchar("color", { length: 50 }).notNull(),
+    isHidden: boolean("isHidden").default(false).notNull(),
+    isRecurrent: boolean("isRecurrent").default(false).notNull(),
     userId: varchar("userId", { length: 256 }).notNull(),
 
     createdAt: timestamp("created_at")
@@ -31,7 +34,28 @@ export const images = createTable(
       .notNull(),
     updatedAt: timestamp("updatedAt"),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  }),
+  // (example) => ({
+  //   nameIndex: index("name_idx").on(example.name),
+  // }),
+);
+
+export const tasks = createTable(
+  "task",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    isDisabled: boolean("isDisabled").default(false),
+    userId: varchar("userId", { length: 256 }).notNull(),
+    categoryId: integer("categoryId").references(() => categories.id, {
+      onDelete: "cascade",
+    }),
+
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt"),
+  },
+  // (example) => ({
+  //   nameIndex: index("name_idx").on(example.name),
+  // }),
 );

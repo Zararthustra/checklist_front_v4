@@ -7,7 +7,7 @@ export default function SubmitTask({ category }: { category: ICategory }) {
   return (
     <button
       type="submit"
-      className="bg-red-200 px-3 py-2"
+      className="px-3 py-2"
       style={{
         background:
           category.color[0] === "l"

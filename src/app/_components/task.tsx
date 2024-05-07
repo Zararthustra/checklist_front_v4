@@ -3,7 +3,8 @@
 import { toast } from "sonner";
 import { delTask, updateTask } from "~/server/queries";
 import { ICategory, ITask } from "../_interfaces";
-import { IconCheck, IconCheckEmpty } from "../_assets/icons";
+import { IconCheck, IconCheckEmpty, IconLoader } from "../_assets/icons";
+import { useState } from "react";
 
 export default function Task({
   task,
@@ -12,14 +13,20 @@ export default function Task({
   task: ITask;
   category: ICategory;
 }) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const checkTask = async () => {
+    setIsLoading(true);
     const { error, data } = await updateTask(task);
+    setIsLoading(false);
     if (error) toast.error(error);
     else toast.success(data);
   };
 
   const removeTask = async () => {
+    setIsLoading(true);
     const { error, data } = await delTask(task);
+    setIsLoading(false);
     if (error) toast.error(error);
     else toast.success(data);
   };
@@ -36,15 +43,21 @@ export default function Task({
         color:
           category.isRecurrent && task.isDisabled ? category.textColor : "",
       }}
-      className="flex cursor-pointer items-center bg-white py-1 text-center dark:bg-black"
+      className="flex cursor-pointer items-center justify-center bg-white py-1 text-center dark:bg-black"
     >
-      {category.isRecurrent &&
-        (task.isDisabled ? (
-          <IconCheck className="ml-4" />
-        ) : (
-          <IconCheckEmpty className="ml-4" />
-        ))}
-      <p className="w-full">{task.name}</p>
+      {isLoading ? (
+        <IconLoader />
+      ) : (
+        <>
+          {category.isRecurrent &&
+            (task.isDisabled ? (
+              <IconCheck className="ml-4" />
+            ) : (
+              <IconCheckEmpty className="ml-4" />
+            ))}
+          <p className="w-full">{task.name}</p>
+        </>
+      )}
     </div>
   );
 }

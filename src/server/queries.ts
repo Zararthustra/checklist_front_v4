@@ -1,13 +1,12 @@
 "use server";
 
-// import "server-only";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { categories, tasks } from "./db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { flat, gradients, greys, pastels } from "~/app/_data/colors";
+import { ICategory, ITask } from "~/app/_interfaces";
 
 // Category
 export async function getCategories() {
@@ -58,7 +57,7 @@ export async function addCategory(formData: FormData) {
   };
 }
 
-export async function delCategory(category: any) {
+export async function delCategory(category: ICategory) {
   const user = auth();
 
   if (!!!user.userId)
@@ -122,6 +121,7 @@ export async function getTasks(categoryId: number) {
   const tasks = await db.query.tasks.findMany({
     where: (model, { eq }) =>
       and(eq(model.userId, user.userId), eq(model.categoryId, categoryId)),
+    orderBy: (model, { asc }) => [asc(model.isDisabled)],
   });
 
   return tasks;
@@ -159,7 +159,33 @@ export async function addTask(categoryId: number, formData: FormData) {
   };
 }
 
-export async function delTask(task: any) {
+export async function updateTask(task: ITask) {
+  const user = auth();
+
+  if (!!!user.userId)
+    return {
+      error: "Unauthorized",
+    };
+
+  try {
+    await db
+      .update(tasks)
+      .set({
+        isDisabled: !task.isDisabled,
+      })
+      .where(and(eq(tasks.userId, user.userId), eq(tasks.id, task.id)));
+  } catch (e) {
+    return {
+      error: "Cannot update category",
+    };
+  }
+
+  revalidatePath("/");
+  if (!task.isDisabled) return { data: task.name + " check !" };
+  return { data: task.name + " à faire" };
+}
+
+export async function delTask(task: ITask) {
   const user = auth();
 
   if (!!!user.userId)

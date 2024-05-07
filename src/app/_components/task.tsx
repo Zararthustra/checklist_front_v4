@@ -1,19 +1,48 @@
 "use client";
 
 import { toast } from "sonner";
-import { delTask } from "~/server/queries";
+import { delTask, updateTask } from "~/server/queries";
+import { ICategory, ITask } from "../_interfaces";
+import { IconCheck, IconCheckEmpty } from "../_assets/icons";
 
-export default function Task({ task }: { task: any }) {
+export default function Task({
+  task,
+  category,
+}: {
+  task: ITask;
+  category: ICategory;
+}) {
+  const checkTask = async () => {
+    const { error, data } = await updateTask(task);
+    if (error) toast.error(error);
+    else toast.success(data);
+  };
+
+  const removeTask = async () => {
+    const { error, data } = await delTask(task);
+    if (error) toast.error(error);
+    else toast.success(data);
+  };
+
   return (
-    <p
-      onClick={async () => {
-        const { error, data } = await delTask(task);
-        if (error) toast.error(error);
-        else toast.success(data);
+    <div
+      onClick={() => {
+        if (category.isRecurrent) checkTask();
+        else removeTask();
       }}
-      className="cursor-pointer bg-white py-1 text-center dark:bg-black"
+      style={{
+        background:
+          category.isRecurrent && task.isDisabled ? category.color : "",
+      }}
+      className="flex cursor-pointer items-center bg-white py-1 text-center dark:bg-black"
     >
-      {task.name}
-    </p>
+      {category.isRecurrent &&
+        (task.isDisabled ? (
+          <IconCheck className="ml-4" />
+        ) : (
+          <IconCheckEmpty className="ml-4" />
+        ))}
+      <p className="w-full">{task.name}</p>
+    </div>
   );
 }

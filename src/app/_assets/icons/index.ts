@@ -9,3 +9,5 @@ export { IconTrash } from "./iconTrash";
 export { IconModify } from "./iconModify";
 export { IconSMS } from "./iconSMS";
 export { IconPalette } from "./iconPalette";
+export { IconCheck } from "./iconCheck";
+export { IconCheckEmpty } from "./iconCheckEmpty";

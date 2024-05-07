@@ -32,7 +32,11 @@ export function CategorySettings({
                 " :%0a " +
                 tasks
                   .map((task) =>
-                    task.isDisabled ? "✅ " + task.name : "☑️ " + task.name,
+                    category.isRecurrent
+                      ? task.isDisabled
+                        ? "✅ " + task.name
+                        : "☑️ " + task.name
+                      : "- " + task.name,
                   )
                   .join("%0a ")
               }

@@ -23,7 +23,7 @@ export default async function Category({ category }: { category: ICategory }) {
       {!!tasks.length && !category.isHidden && (
         <div className="my-1 flex w-full flex-col gap-1">
           {tasks.map((task: any) => (
-            <Tasks key={task.id} task={task} />
+            <Tasks key={task.id} task={task} category={category} />
           ))}
         </div>
       )}

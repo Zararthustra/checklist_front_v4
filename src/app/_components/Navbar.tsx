@@ -7,17 +7,16 @@ import Settings from "./dialogs/settings";
 import { useTheme } from "next-themes";
 import { IconLogout } from "../_assets/icons";
 import ImportChecklist from "./dialogs/importChecklist";
+import { IconLogo } from "../_assets/icons/iconLogo";
 
 export default function Navbar() {
   const { theme } = useTheme();
 
   return (
-    <nav className="flex w-full justify-between px-[17px] py-5 text-xl font-bold">
-      <div>Checklist</div>
+    <nav className="flex w-full items-center justify-between px-[17px] py-5 text-xl font-bold">
+      <IconLogo width={50} height={50} />
 
-      <SignedIn>
-        <CategoryForm />
-      </SignedIn>
+      <CategoryForm />
 
       <Settings title="Paramètres">
         <div className="my-10 flex flex-col gap-5">
@@ -38,14 +37,12 @@ export default function Navbar() {
 
         <div className="flex items-center justify-between">
           <div />
-          <SignedIn>
-            <SignOutButton>
-              <button className="flex items-center justify-evenly gap-2 rounded bg-red-500 px-4 py-1 text-white transition-colors hover:bg-red-600">
-                <IconLogout />
-                <p className="text-sm">Se déconnecter</p>
-              </button>
-            </SignOutButton>
-          </SignedIn>
+          <SignOutButton>
+            <button className="flex items-center justify-evenly gap-2 rounded bg-red-500 px-4 py-1 text-white transition-colors hover:bg-red-600">
+              <IconLogout />
+              <p className="text-sm">Se déconnecter</p>
+            </button>
+          </SignOutButton>
         </div>
       </Settings>
     </nav>

@@ -1,4 +1,4 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import Navbar from "./_components/Navbar";
 
@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="fr" suppressHydrationWarning>
         <body className={`font-sans ${inter.variable}`}>
           <ThemeProvider
             attribute="class"
@@ -33,7 +33,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
+            <SignedIn>
+              <Navbar />
+            </SignedIn>
             {children}
             <Toaster />
           </ThemeProvider>

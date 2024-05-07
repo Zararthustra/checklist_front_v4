@@ -11,3 +11,5 @@ export { IconSMS } from "./iconSMS";
 export { IconPalette } from "./iconPalette";
 export { IconCheck } from "./iconCheck";
 export { IconCheckEmpty } from "./iconCheckEmpty";
+export { IconLogout } from "./iconLogout";
+export { IconLogin } from "./iconLogin";

@@ -4,7 +4,7 @@ interface ICategory {
   id: number;
   name: string;
   color: string;
-  textColor: "white" | "black";
+  textColor: string;
   isHidden: boolean;
   isRecurrent: boolean;
   userId: string;

@@ -25,6 +25,7 @@ export const categories = createTable(
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
     color: varchar("color", { length: 50 }).notNull(),
+    textColor: varchar("textColor", { length: 50 }).notNull(),
     isHidden: boolean("isHidden").default(false).notNull(),
     isRecurrent: boolean("isRecurrent").default(false).notNull(),
     userId: varchar("userId", { length: 256 }).notNull(),

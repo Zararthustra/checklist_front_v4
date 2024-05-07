@@ -33,6 +33,8 @@ export default function Task({
       style={{
         background:
           category.isRecurrent && task.isDisabled ? category.color : "",
+        color:
+          category.isRecurrent && task.isDisabled ? category.textColor : "",
       }}
       className="flex cursor-pointer items-center bg-white py-1 text-center dark:bg-black"
     >

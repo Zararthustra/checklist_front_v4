@@ -25,7 +25,7 @@ export default function TaskForm({ category }: { category: ICategory }) {
         type="text"
         name="task"
       />
-      <SubmitTask categoryColor={category.color} />
+      <SubmitTask category={category} />
     </form>
   );
 }

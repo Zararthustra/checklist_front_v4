@@ -43,6 +43,7 @@ export async function addCategory(formData: FormData) {
       color: colorsArray[
         Math.floor(Math.random() * colorsArray.length)
       ] as string,
+      textColor: "white",
     });
   } catch (e) {
     return {
@@ -82,7 +83,7 @@ export async function delCategory(category: ICategory) {
 
 export async function updateCategory(
   categoryId: number,
-  field: "isHidden" | "color" | "name" | "isRecurrent",
+  field: "isHidden" | "color" | "name" | "isRecurrent" | "textColor",
   value: boolean | string,
 ) {
   const user = auth();

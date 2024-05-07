@@ -64,11 +64,52 @@ export function CategorySettings({
               }}
             />
           </div>
+
           <div className="flex items-center justify-between">
             <p className="whitespace-nowrap text-zinc-500 dark:text-zinc-400">
-              Changer de couleur
+              Couleur catégorie
             </p>
             <ColorPopover category={category} />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p className="whitespace-nowrap text-zinc-500 dark:text-zinc-400">
+              Couleur texte
+            </p>
+            <div className="flex items-center gap-2">
+              <div
+                className="h-5 w-5 cursor-pointer rounded border bg-black"
+                onClick={async () => {
+                  if (category.textColor === "black") return;
+                  const { error } = await updateCategory(
+                    category.id,
+                    "textColor",
+                    "black",
+                  );
+                  if (error) toast.error(error);
+                }}
+                style={{
+                  border:
+                    category.textColor === "black" ? "2px solid #22c55e" : "",
+                }}
+              />
+              <div
+                className="h-5 w-5 cursor-pointer rounded border bg-white"
+                onClick={async () => {
+                  if (category.textColor === "white") return;
+                  const { error } = await updateCategory(
+                    category.id,
+                    "textColor",
+                    "white",
+                  );
+                  if (error) toast.error(error);
+                }}
+                style={{
+                  border:
+                    category.textColor === "white" ? "2px solid #22c55e" : "",
+                }}
+              />
+            </div>
           </div>
 
           <div className="flex items-center justify-between">

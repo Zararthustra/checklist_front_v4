@@ -102,6 +102,7 @@ const createCategories = async (categoriesToImport: any[], userId: string) => {
         error: "Une erreur est survenue lors de la création des catégories",
       };
 
+    // Store temporary old Categories ID in order to find their Tasks later (Task.categoryId)
     categoriesIdsMatch.push({
       oldId: categoryToImport.id,
       newId: categoryCreated[0]?.id as number,
@@ -137,25 +138,25 @@ const createTasks = async (
 
     if (!!!category) return {};
 
-    for (let taskIndex = 0; taskIndex < tasksToImport.length; taskIndex++) {
-      const taskToImport = tasksToImport[taskIndex];
+    const tasksCreated = await db
+      .insert(tasks)
+      .values(
+        tasksToImport
+          // Match old IDs stored earlier
+          .filter((task) => category.oldId === task.category)
+          .map((task) => ({
+            name: task.name,
+            userId: userId,
+            isDisabled: task.isDisabled,
+            categoryId: category.newId,
+          })),
+      )
+      .returning();
 
-      if (category.oldId !== taskToImport.category) continue;
-      const taskCreated = await db
-        .insert(tasks)
-        .values({
-          name: taskToImport.name,
-          userId: userId,
-          isDisabled: taskToImport.isDisabled,
-          categoryId: category.newId,
-        })
-        .returning();
-
-      if (!!!taskCreated)
-        return {
-          taskError: "Une erreur est survenue lors de la création des tâches",
-        };
-    }
+    if (!!!tasksCreated)
+      return {
+        taskError: "Une erreur est survenue lors de la création des tâches",
+      };
   }
 
   return {};

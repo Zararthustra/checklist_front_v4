@@ -7,6 +7,7 @@ import { categories, tasks } from "./db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { flat, gradients, greys, pastels } from "~/app/_data/colors";
 
 // Category
 export async function getCategories() {
@@ -35,11 +36,14 @@ export async function addCategory(formData: FormData) {
       error: "Veuillez entrer une tâche.",
     };
 
+  const colorsArray: string[] = [...flat, ...gradients, ...pastels, ...greys];
   try {
     await db.insert(categories).values({
       name: formData.get("category") as string,
       userId: user.userId,
-      color: "#ff0",
+      color: colorsArray[
+        Math.floor(Math.random() * colorsArray.length)
+      ] as string,
     });
   } catch (e) {
     return {

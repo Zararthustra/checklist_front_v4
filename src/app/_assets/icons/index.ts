@@ -8,3 +8,4 @@ export { IconAddTask } from "./iconAddTask";
 export { IconTrash } from "./iconTrash";
 export { IconModify } from "./iconModify";
 export { IconSMS } from "./iconSMS";
+export { IconPalette } from "./iconPalette";

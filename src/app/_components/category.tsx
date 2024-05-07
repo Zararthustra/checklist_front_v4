@@ -12,7 +12,7 @@ export default async function Category({ category }: { category: ICategory }) {
     <div className="flex h-full w-[500px] max-w-[95%] flex-col items-center overflow-hidden rounded-br-lg rounded-tl-lg">
       <div
         className="w-full bg-red-200 px-2 pb-4 pt-2"
-        // style={{ backgroundColor: category.color }}
+        style={{ background: category.color }}
       >
         <div className="flex w-full justify-between">
           <HideCategory category={category} />

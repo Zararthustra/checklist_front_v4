@@ -1,8 +1,8 @@
 import { IIcon } from "~/app/_interfaces";
 
 export function IconTrash({
-  width = 20,
-  height = 20,
+  width = 18,
+  height = 18,
   className = "",
   style,
   color,

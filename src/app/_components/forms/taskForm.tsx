@@ -4,8 +4,9 @@ import { addTask } from "~/server/queries";
 import { useRef } from "react";
 import { toast } from "sonner";
 import SubmitTask from "../buttons/submitTask";
+import { ICategory } from "~/app/_interfaces";
 
-export default function TaskForm({ category }: { category: any }) {
+export default function TaskForm({ category }: { category: ICategory }) {
   const ref = useRef<HTMLFormElement>(null);
 
   return (
@@ -24,7 +25,7 @@ export default function TaskForm({ category }: { category: any }) {
         type="text"
         name="task"
       />
-      <SubmitTask />
+      <SubmitTask categoryColor={category.color} />
     </form>
   );
 }

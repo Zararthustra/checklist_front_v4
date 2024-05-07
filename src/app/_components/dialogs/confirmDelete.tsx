@@ -19,13 +19,13 @@ export default function ConfirmDelete({ category }: { category: ICategory }) {
       <DialogTrigger className="rounded bg-destructive px-4 py-1 text-white transition-colors hover:bg-red-600">
         <div className="flex items-center justify-evenly gap-2">
           <IconTrash />
-          <p>Supprimer la catégorie</p>
+          <p className="text-sm">Supprimer</p>
         </div>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Êtes-vous sûr ?</DialogTitle>
+          <DialogTitle className="my-5">Êtes-vous sûr ?</DialogTitle>
         </DialogHeader>
         <DialogFooter>
           <button

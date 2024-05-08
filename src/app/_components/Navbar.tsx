@@ -1,6 +1,6 @@
 "use client";
 
-import { SignOutButton, SignedIn } from "@clerk/nextjs";
+import { SignOutButton } from "@clerk/nextjs";
 import CategoryForm from "./forms/categoryForm";
 import Darkmode from "./buttons/darkmode";
 import Settings from "./dialogs/settings";

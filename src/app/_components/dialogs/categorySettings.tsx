@@ -1,7 +1,7 @@
 "use client";
 
 import Settings from "./settings";
-import { ICategory, ITask } from "~/app/_interfaces";
+import type { ICategory, ITask } from "~/app/_interfaces";
 import ConfirmDelete from "./confirmDelete";
 import UpdateCategoryForm from "../forms/updateCategoryForm";
 import { Switch } from "~/components/ui/switch";

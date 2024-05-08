@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { IconHidden, IconLoader, IconVisible } from "~/app/_assets/icons";
-import { ICategory } from "~/app/_interfaces";
+import type { ICategory } from "~/app/_interfaces";
 import { updateCategory } from "~/server/queries";
 import { useState } from "react";
 

@@ -6,7 +6,7 @@ import { categories, tasks } from "./db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { flat, gradients, greys, pastels } from "~/app/_data/colors";
-import { ICategory, ITask } from "~/app/_interfaces";
+import type { ICategory, ITask } from "~/app/_interfaces";
 
 // Category
 export async function getCategories() {
@@ -30,19 +30,21 @@ export async function addCategory(formData: FormData) {
       error: "Unauthorized",
     };
 
-  if (!!!formData.get("category"))
+  const category = formData.get("category");
+
+  if (!!!category || typeof category !== "string")
     return {
-      error: "Veuillez entrer une tâche.",
+      error: "Veuillez entrer une catégorie.",
     };
 
   const colorsArray: string[] = [...flat, ...gradients, ...pastels, ...greys];
+
   try {
     await db.insert(categories).values({
-      name: formData.get("category") as string,
+      name: category,
       userId: user.userId,
-      color: colorsArray[
-        Math.floor(Math.random() * colorsArray.length)
-      ] as string,
+      color:
+        colorsArray[Math.floor(Math.random() * colorsArray.length)] ?? "#ff0",
       textColor: "white",
     });
   } catch (e) {
@@ -54,7 +56,7 @@ export async function addCategory(formData: FormData) {
   revalidatePath("/");
 
   return {
-    data: formData.get("category") + " ajouté !",
+    data: `${category} ajouté !`,
   };
 }
 
@@ -136,14 +138,16 @@ export async function addTask(categoryId: number, formData: FormData) {
       error: "Unauthorized",
     };
 
-  if (!!!formData.get("task"))
+  const task = formData.get("task");
+
+  if (!!!task || typeof task !== "string")
     return {
       error: "Veuillez entrer une tâche.",
     };
 
   try {
     await db.insert(tasks).values({
-      name: formData.get("task") as string,
+      name: task,
       userId: user.userId,
       categoryId,
     });
@@ -156,7 +160,7 @@ export async function addTask(categoryId: number, formData: FormData) {
   revalidatePath("/");
 
   return {
-    data: formData.get("task") + " ajouté !",
+    data: `${task} ajouté !`,
   };
 }
 

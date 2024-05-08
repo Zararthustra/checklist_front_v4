@@ -1,5 +1,5 @@
 import { useFormStatus } from "react-dom";
-import { IconLoader, IconLogin, IconModify } from "~/app/_assets/icons";
+import { IconLoader, IconLogin } from "~/app/_assets/icons";
 
 export default function SubmitImport() {
   const { pending } = useFormStatus();

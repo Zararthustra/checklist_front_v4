@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { ICategory } from "~/app/_interfaces";
+import type { ICategory } from "~/app/_interfaces";
 import { updateCategory } from "~/server/queries";
 import SubmitRename from "../buttons/submitRename";
 
@@ -15,12 +15,12 @@ export default function UpdateCategoryForm({
 
   return (
     <form
-      action={async (formdata: FormData) => {
+      action={async () => {
         if (!!!renameValue || renameValue === category.name) return;
         const { error } = await updateCategory(
           category.id,
           "name",
-          renameValue as string,
+          renameValue,
         );
         if (!!error) toast.error(error);
       }}

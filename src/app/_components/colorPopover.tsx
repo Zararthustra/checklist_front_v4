@@ -7,7 +7,7 @@ import {
 } from "~/components/ui/popover";
 import { flat, gradients, greys, pastels } from "../_data/colors";
 import { updateCategory } from "~/server/queries";
-import { ICategory } from "../_interfaces";
+import type { ICategory } from "../_interfaces";
 import { toast } from "sonner";
 import { IconPalette } from "../_assets/icons";
 import { useState } from "react";
@@ -21,10 +21,9 @@ export default function ColorPopover({ category }: { category: ICategory }) {
         <button onClick={() => setChosen(true)}>
           <IconPalette
             style={{
-              color:
-                category.color[0] === "l"
-                  ? category.color.split(",")[1]
-                  : category.color,
+              color: category.color.startsWith("l")
+                ? category.color.split(",")[1]
+                : category.color,
             }}
           />
         </button>

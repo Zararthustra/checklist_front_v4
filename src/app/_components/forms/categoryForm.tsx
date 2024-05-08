@@ -1,6 +1,6 @@
 "use client";
 
-import { addCategory, addTask } from "~/server/queries";
+import { addCategory } from "~/server/queries";
 import { useRef } from "react";
 import { toast } from "sonner";
 import SubmitCategory from "../buttons/submitCategory";

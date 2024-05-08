@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { delTask, updateTask } from "~/server/queries";
-import { ICategory, ITask } from "../_interfaces";
+import type { ICategory, ITask } from "../_interfaces";
 import { IconCheck, IconCheckEmpty, IconLoader } from "../_assets/icons";
 import { useState } from "react";
 
@@ -33,9 +33,9 @@ export default function Task({
 
   return (
     <div
-      onClick={() => {
-        if (category.isRecurrent) checkTask();
-        else removeTask();
+      onClick={async () => {
+        if (category.isRecurrent) await checkTask();
+        else await removeTask();
       }}
       style={{
         background:

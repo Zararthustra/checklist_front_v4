@@ -1,7 +1,7 @@
 import { getTasks } from "~/server/queries";
 import Tasks from "./task";
 import TaskForm from "./forms/taskForm";
-import { ICategory } from "../_interfaces";
+import type { ICategory, ITask } from "../_interfaces";
 import HideCategory from "./buttons/hideCategory";
 import { CategorySettings } from "./dialogs/categorySettings";
 
@@ -22,7 +22,7 @@ export default async function Category({ category }: { category: ICategory }) {
       </div>
       {!!tasks.length && !category.isHidden && (
         <div className="my-1 flex w-full flex-col gap-1">
-          {tasks.map((task: any) => (
+          {tasks.map((task: ITask) => (
             <Tasks key={task.id} task={task} category={category} />
           ))}
         </div>

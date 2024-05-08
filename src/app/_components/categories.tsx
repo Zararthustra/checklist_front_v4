@@ -1,6 +1,6 @@
 import { getCategories } from "~/server/queries";
 import Category from "./category";
-import { ICategory } from "../_interfaces";
+import type { ICategory } from "../_interfaces";
 
 export default async function Categories() {
   const categories = await getCategories();

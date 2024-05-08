@@ -1,6 +1,6 @@
 "use client";
 
-import { IIcon } from "~/app/_interfaces";
+import type { IIcon } from "~/app/_interfaces";
 
 export function IconLogout({
   width = 18,

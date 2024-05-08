@@ -4,9 +4,18 @@ import { auth } from "@clerk/nextjs/server";
 import { categories, tasks } from "./db/schema";
 import { db } from "./db";
 import { revalidatePath } from "next/cache";
+import type { ICategory, ITask } from "~/app/_interfaces";
+
+type fetchType<T> = {
+  json: () => Promise<T>;
+  status: number;
+};
+interface ITaskCategory extends ITask {
+  category: string;
+}
 
 const login = async (account: string, password: string) => {
-  const loginResponse = await fetch(
+  const loginResponse: fetchType<{ access: string }> = await fetch(
     "https://checklist.pythonanywhere.com/api/token/",
     {
       method: "POST",
@@ -30,7 +39,7 @@ const login = async (account: string, password: string) => {
 };
 
 const getCategories = async (accessToken: string) => {
-  const categoriesResponse = await fetch(
+  const categoriesResponse: fetchType<ICategory[]> = await fetch(
     "https://checklist.pythonanywhere.com/api/category",
     {
       method: "GET",
@@ -50,7 +59,7 @@ const getCategories = async (accessToken: string) => {
 };
 
 const getTasks = async (accessToken: string) => {
-  const tasksResponse = await fetch(
+  const tasksResponse: fetchType<ITaskCategory[]> = await fetch(
     "https://checklist.pythonanywhere.com/api/tasks",
     {
       method: "GET",
@@ -69,23 +78,21 @@ const getTasks = async (accessToken: string) => {
   };
 };
 
-const createCategories = async (categoriesToImport: any[], userId: string) => {
+const createCategories = async (
+  categoriesToImport: ICategory[],
+  userId: string,
+) => {
   if (!!!userId)
     return {
       error: "Unauthorized",
     };
 
-  let categoriesIdsMatch: {
+  const categoriesIdsMatch: {
     oldId: string;
     newId: number;
   }[] = [];
-  for (
-    let categoryIndex = 0;
-    categoryIndex < categoriesToImport.length;
-    categoryIndex++
-  ) {
-    const categoryToImport = categoriesToImport[categoryIndex];
 
+  for (const categoryToImport of categoriesToImport) {
     const categoryCreated = await db
       .insert(categories)
       .values({
@@ -97,15 +104,15 @@ const createCategories = async (categoriesToImport: any[], userId: string) => {
       })
       .returning();
 
-    if (!!!categoryCreated)
+    if (!!!categoryCreated || !!!categoryCreated[0])
       return {
         error: "Une erreur est survenue lors de la création des catégories",
       };
 
     // Store temporary old Categories ID in order to find their Tasks later (Task.categoryId)
     categoriesIdsMatch.push({
-      oldId: categoryToImport.id,
-      newId: categoryCreated[0]?.id as number,
+      oldId: String(categoryToImport.id),
+      newId: categoryCreated[0].id,
     });
   }
 
@@ -116,7 +123,7 @@ const createCategories = async (categoriesToImport: any[], userId: string) => {
 
 const createTasks = async (
   categoriesIdsMatch: { oldId: string; newId: number }[] | undefined,
-  tasksToImport: any[],
+  tasksToImport: ITaskCategory[],
   userId: string,
 ) => {
   if (!!!userId)
@@ -129,15 +136,7 @@ const createTasks = async (
       taskError: "Une erreur est survenue lors de la création des tâches",
     };
 
-  for (
-    let categoryIndex = 0;
-    categoryIndex < categoriesIdsMatch.length;
-    categoryIndex++
-  ) {
-    const category = categoriesIdsMatch[categoryIndex];
-
-    if (!!!category) return {};
-
+  for (const category of categoriesIdsMatch) {
     const tasksCreated = await db
       .insert(tasks)
       .values(

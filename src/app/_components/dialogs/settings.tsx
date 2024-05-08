@@ -4,7 +4,6 @@ import { IconSettings } from "~/app/_assets/icons";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,

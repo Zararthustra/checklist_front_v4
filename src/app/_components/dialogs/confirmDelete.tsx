@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { IconTrash } from "~/app/_assets/icons";
-import { ICategory } from "~/app/_interfaces";
+import type { ICategory } from "~/app/_interfaces";
 import {
   Dialog,
   DialogContent,
